@@ -12,18 +12,17 @@ Validated on SSP-RK3 (O(dt²) → O(dt³)) and extended to classical RK4
 ## Repository layout
 
 ```
-scripts/           # SSP-RK3 stencil optimisation, validation, and figure generation
-rk4_extension/     # Classical RK4 extension (optimisation + figures)
-data/              # Pre-optimised SSP-RK3 stencil weights (.npz)
+scripts/             # SSP-RK3 stencil optimisation, validation, and figure generation
+rk4_extension/       # Classical RK4 extension (optimisation + figures)
+data/                # Pre-optimised SSP-RK3 stencil weights (.npz)
 rk4_extension/data/  # Pre-optimised RK4 stencil weights (.npz)
-images/            # Output directory for generated figures (created on first run)
-paper/             # LaTeX source (report.tex, SIAM class, bibliography)
+images/              # Output directory for generated figures (created on first run)
 ```
 
 ## Requirements
 
 ```bash
-conda activate ml_rk4   # or: pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Dependencies: `numpy`, `scipy`, `matplotlib`, `torch`.
@@ -55,16 +54,6 @@ All scripts are designed to be run from the **repository root**.
 | `scripts/rk4_wso_comparison.py` | `fig_rk4_wso_comparison` |
 
 All figures are saved to `images/`.
-
-### Compile the paper
-
-```bash
-cd paper
-latexmk -pdf report.tex
-```
-
-Requires a LaTeX distribution with `latexmk` and the SIAM class (included as
-`siamart251216.cls`).
 
 ## Re-running the optimisation
 
