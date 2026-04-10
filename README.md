@@ -87,4 +87,4 @@ The interior scheme is a fixed 5th-order upwind stencil, unchanged across all va
 ## Authors
 
 Giorgio Maria Cavallazzi, Manuel Pérez Cuadrado, Alfredo Pinelli
-City St. George's, University of London
+*City St. George's, University of London*
