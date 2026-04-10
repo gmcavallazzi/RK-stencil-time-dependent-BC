@@ -1,0 +1,111 @@
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[>=stealth, scale=1.1]
+        % Grid line
+        \draw[gray, thin] (-0.3,0) -- (6.3,0);
+        % Nodes
+        \foreach \j/\lbl in {0/$u_0$, 1/$u_1$, 2/$u_2$, 3/$u_3$, 4/$u_4$, 5/$u_5$, 6/$\cdots$} {
+            \draw (\j, -0.1) -- (\j, 0.1);
+            \node[below] at (\j, -0.15) {\small \lbl};
+        }
+        % Boundary node (diamond, orange)
+        \node[diamond, fill=orange, draw=black, inner sep=2pt] at (0,0) {};
+        \node[above left, orange, font=\small] at (-0.15, 0.15) {$g(t)$};
+        % Optimised nodes (square, teal)
+        \node[rectangle, fill=teal, draw=black, minimum size=6pt, inner sep=0pt] at (1,0) {};
+        \node[rectangle, fill=teal, draw=black, minimum size=6pt, inner sep=0pt] at (2,0) {};
+        % Interior nodes (circle, gray)
+        \foreach \j in {3,4,5,6} {
+            \node[circle, fill=gray!50, draw=black, minimum size=5pt, inner sep=0pt] at (\j,0) {};
+        }
+        % Node 1 stencil bracket
+        \draw[teal, thick] (0, 0.6) -- (0, 0.75) -- (4, 0.75) -- (4, 0.6);
+        \draw[teal, thick, ->] (1, 0.6) -- (1, 0.35);
+        \node[right, teal, font=\small] at (4.1, 0.75) {Node~1: $w_0^{(1)} \ldots w_4^{(1)}$};
+        % Node 2 stencil bracket
+        \draw[orange, thick] (0, 1.15) -- (0, 1.3) -- (4, 1.3) -- (4, 1.15);
+        \draw[orange, thick, ->] (2, 1.15) -- (2, 0.35);
+        \node[right, orange, font=\small] at (4.1, 1.3) {Node~2: $w_0^{(2)} \ldots w_4^{(2)}$};
+        % Interior stencil bracket
+        \draw[gray, thick] (1, -0.6) -- (1, -0.75) -- (6, -0.75) -- (6, -0.6);
+        \draw[gray, thick, ->] (3.5, -0.6) -- (3.5, -0.35);
+        \node[below, gray, font=\small] at (3.5, -0.8) {Interior: 5th-order upwind (6-point)};
+        % Region labels
+        \node[teal, font=\footnotesize\itshape] at (1.5, -1.6) {Optimised};
+        \node[gray, font=\footnotesize\itshape] at (4.5, -1.6) {Interior};
+    \end{tikzpicture}
+    \caption{Near-boundary stencil layout with overlapping closures.}
+    \label{fig:stencil}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_convergence.pdf}
+    \caption{SSP-RK3 convergence validation. (a) Linear advection. (b) 1D inviscid Burgers (nonlinear) via MMS. (c) 2D advection via dimensional splitting.}
+    \label{fig:convergence}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_rk4_convergence.pdf}
+    \caption{Classical RK4 convergence validation. (a) Linear advection. (b) 1D Burgers (MMS). (c) 2D advection.}
+    \label{fig:rk4_convergence}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_cfl_sweep.pdf}
+    \caption{Measured convergence order versus CFL number. (a) SSP-RK3. (b) Classical RK4. The accuracy-only stencils collapse at their respective CFL limits, while the stability-augmented variants maintain convergence across wider CFL ranges.}
+    \label{fig:cfl_sweep}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_wso_comparison.pdf}
+    \caption{SSP-RK3 with standard and optimised stencils vs.\ three order-3 WSO methods with standard stencils: (a) 1D Linear Advection, (b) 1D Burgers (MMS), (c) 2D Linear Advection.}
+    \label{fig:wso}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_rk4_wso_comparison.pdf}
+    \caption{Classical RK4 with standard and optimised stencils vs.\ the order-4 WSO method Biswas~(6,4,3) with standard stencils: (a) 1D Linear Advection, (b) 1D Burgers (MMS), (c) 2D Linear Advection.}
+    \label{fig:rk4_wso}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{fig_stability.pdf}
+    \caption{SSP-RK3: Eigenvalue spectra overlaid on the stability lobe. (a) Standard vs.\ accuracy-only. (b) Standard vs.\ stability-augmented. Small markers trace the accuracy-only eigenvalues as CFL increases.}
+    \label{fig:stability}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_rk4_stability.pdf}
+    \caption{Classical RK4: Eigenvalue spectra overlaid on the RK4 stability lobe at CFL $= 0.5$. Same structure as Fig.~\ref{fig:stability}.}
+    \label{fig:rk4_stability}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_gershgorin.pdf}
+    \caption{Gershgorin discs for the SSP-RK3 boundary closure rows (solid: row 1, dashed: row 2) overlaid on the stability region at CFL~$= 0.5$. (a) Standard. (b) Accuracy-only. (c) Acc.+stab.}
+    \label{fig:gershgorin}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_spectral.pdf}
+    \caption{SSP-RK3: Modified wavenumber (dispersion) and numerical dissipation analysis of the boundary closures.}
+    \label{fig_spectral}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_rk4_spectral.pdf}
+    \caption{Classical RK4: Spectral properties (dispersion and dissipation) of the optimised boundary stencils.}
+    \label{fig:rk4_spectral}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_stability_distance.pdf}
+    \caption{Trajectory of the most dominant eigenvalue pair for the stability-augmented stencils across increasing CFL numbers $\{0.2, 0.4, \ldots, 1.2\}$, for both SSP-RK3 and classical RK4. The background contour represents the distance from the origin within the stability envelope.}
+    \label{fig:stability_distance}
+\end{figure}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{fig_euler_convergence.pdf}
+    \caption{Convergence on the coupled 1D linearised Euler equations. (a)~SSP-RK3 with order-3 WSO methods. (b)~Classical RK4 with the order-4 (6,4,3) WSO method. Optimised boundary stencils restore high-order convergence while WSO methods show no improvement.}
+    \label{fig:euler_convergence}
+\end{figure}
